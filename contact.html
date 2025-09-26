@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | Vedant Jain</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="logo">Cod<span class="accent">er</span></div>
+    <nav class="navbar">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html" class="active btn">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Page Banner -->
+  <section class="page-banner">
+    <h1>Get in Touch</h1>
+    <p>I’d love to hear from you. Let’s connect and build something amazing together.</p>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact">
+    <div class="contact-info">
+      <h2>Contact Information</h2>
+      <p><strong>Email:</strong> vedant.jain@example.com</p>
+      <p><strong>Phone:</strong> +91 98765 43210</p>
+      <p><strong>Location:</strong> New Delhi, India</p>
+
+      <div class="social-links">
+        <a href="#"><i class="fab fa-linkedin"></i></a>
+        <a href="#"><i class="fab fa-github"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+
+    <div class="contact-form">
+      <h2>Send Me a Message</h2>
+      <form id="contactForm" action="https://formspree.io/f/mrbybdbn" method="POST">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="_replyto" placeholder="Your Email" required>
+        <input type="text" name="subject" placeholder="Subject" required>
+        <textarea name="message" rows="6" placeholder="Your Message" required></textarea>
+        <button type="submit" class="btn">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Success & Error Popup -->
+  <div class="popup" id="popup">
+    <div class="popup-card">
+      <span class="popup-icon" id="popupIcon">✔️</span>
+      <h3 id="popupTitle">Message Sent!</h3>
+      <p id="popupMessage">Thank you for reaching out, I’ll reply soon.</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Vedant Jain. All Rights Reserved.</p>
+  </footer>
+
+  <!-- FontAwesome for Icons -->
+  <script src="https://kit.fontawesome.com/your-kit-code.js" crossorigin="anonymous"></script>
+
+  <!-- Form Handling Script -->
+  <script>
+  document.getElementById("contactForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // stop default submit
+
+    const form = this;
+    const popup = document.getElementById("popup");
+    const popupIcon = document.getElementById("popupIcon");
+    const popupTitle = document.getElementById("popupTitle");
+    const popupMessage = document.getElementById("popupMessage");
+
+    // Send form data with Fetch
+    fetch(form.action, {
+      method: form.method,
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    }).then(response => {
+      if (response.ok) {
+        // Success UI
+        popupIcon.textContent = "✔️";
+        popupTitle.textContent = "Message Sent!";
+        popupMessage.textContent = "Thank you for reaching out, I’ll reply soon.";
+        popup.classList.add("show");
+        form.reset();
+
+        // Redirect after 2.5 seconds
+        setTimeout(() => {
+          window.location.href = "thankyou.html";
+        }, 2500);
+
+      } else {
+        // Error UI
+        popupIcon.textContent = "❌";
+        popupTitle.textContent = "Message Failed!";
+        popupMessage.textContent = "Something went wrong. Please try again later.";
+        popup.classList.add("show");
+
+        // Hide after 3s
+        setTimeout(() => popup.classList.remove("show"), 3000);
+      }
+    }).catch(() => {
+      // Error UI
+      popupIcon.textContent = "❌";
+      popupTitle.textContent = "Network Error!";
+      popupMessage.textContent = "Could not send your message. Check your internet connection.";
+      popup.classList.add("show");
+
+      // Hide after 3s
+      setTimeout(() => popup.classList.remove("show"), 3000);
+    });
+  });
+  </script>
+
+</body>
+</html>
